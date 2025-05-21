@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Feliz Dia dos Namorados ❤️</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #fff0f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        .container {
+            padding: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            color: #ff1493;
+            margin-bottom: 30px;
+        }
+
+        /* Estilos do carrossel */
+        .carousel-container {
+            max-width: 800px;
+            margin: 0 auto 30px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            touch-action: pan-y;
+        }
+
+        .carousel {
+            display: flex;
+            transition: transform 0.5s ease;
+            width: 100%;
+        }
+
+        .carousel img {
+            width: 100%;
+            height: auto;
+            flex-shrink: 0;
+            object-fit: cover;
+        }
+
+        .carousel-indicators {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #ccc;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .indicator.active {
+            background-color: #ff1493;
+        }
+
+        /* Player do Spotify */
+        .spotify-player {
+            max-width: 500px;
+            margin: 20px auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Texto romântico */
+        .texto-romantico {
+            margin: 30px auto;
+            font-size: 20px;
+            max-width: 800px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            line-height: 1.6;
+        }
+
+        /* Contador de amor */
+        .love-counter {
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+        }
+
+        .resultado {
+            font-size: 24px;
+            color: #ff1493;
+            margin-top: 15px;
+        }
+
+        /* Corações de fundo */
+        .hearts-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .heart {
+            position: absolute;
+            top: -50px;
+            color: rgba(255, 20, 147, 0.6);
+            font-size: 30px;
+            animation: fall linear infinite;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Container para os corações (não interfere com a rolagem) -->
+    <div class="hearts-container" id="hearts-container"></div>
+
+    <!-- Conteúdo principal -->
+    <div class="container">
+        <h1>Feliz Dia dos Namorados ❤️</h1>
+
+        <!-- Carrossel de imagens -->
+        <div class="carousel-container" id="carousel-container">
+            <div class="carousel" id="carousel">
+                <!-- Imagens serão adicionadas via JavaScript -->
+            </div>
+            <div class="carousel-indicators" id="indicators"></div>
+        </div>
+
+        <!-- Player do Spotify -->
+        <div class="spotify-player">
+            <iframe style="border-radius:12px"
+                src="https://open.spotify.com/embed/track/07Ip5REyWJm0yO1hrJecY5?utm_source=generator" width="100%"
+                height="152" frameBorder="0" allowfullscreen=""
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                loading="lazy"></iframe>
+        </div>
+
+        <!-- Texto romântico -->
+        <div class="texto-romantico">
+            <p>
+                Coloque aqui sua mensagem personalizada para sua namorada. Fale sobre o que ela significa pra você,
+                momentos especiais, ou qualquer coisa linda que queira dizer 💖
+            </p>
+            <p>
+                Você é a pessoa mais incrível que já conheci. Cada momento ao seu lado é especial e guardo cada um deles no meu coração. 
+                Seu sorriso ilumina meus dias e seu amor aquece minha vida. Obrigado por ser quem você é e por me permitir fazer parte da sua vida.
+            </p>
+        </div>
+
+        <!-- Contador de amor -->
+        <div class="love-counter">
+            <h2>Desde quando você ama?</h2>
+            <div class="resultado" id="resultado"></div>
+        </div>
+    </div>
+
+    <script>
+        // Configuração do carrossel
+        const carousel = document.getElementById('carousel');
+        const carouselContainer = document.getElementById('carousel-container');
+        const indicatorsContainer = document.getElementById('indicators');
+        let currentSlide = 0;
+        let autoSlideInterval;
+        let startX = 0;
+        let isDragging = false;
+        
+        // Lista de imagens para o carrossel (substitua pelas suas imagens)
+        const images = [
+            'image1.jpg',
+            'image2.jpg',
+            'image3.jpg'
+        ];
+        
+        // Criar slides e indicadores
+        images.forEach((img, index) => {
+            // Criar slide
+            const slide = document.createElement('div');
+            slide.className = 'slide';
+            slide.style.width = '100%';
+            slide.innerHTML = `<img src="${img}" alt="Foto do casal ${index + 1}" style="width:100%;">`;
+            carousel.appendChild(slide);
+            
+            // Criar indicador
+            const indicator = document.createElement('div');
+            indicator.className = 'indicator';
+            if (index === 0) indicator.classList.add('active');
+            indicator.addEventListener('click', () => goToSlide(index));
+            indicatorsContainer.appendChild(indicator);
+        });
+        
+        // Ajustar carrossel
+        function updateCarousel() {
+            carousel.style.width = `${images.length * 100}%`;
+            document.querySelectorAll('.slide').forEach(slide => {
+                slide.style.width = `${100 / images.length}%`;
+            });
+        }
+        
+        // Navegação do carrossel
+        function goToSlide(slideIndex) {
+            currentSlide = slideIndex;
+            carousel.style.transform = `translateX(-${currentSlide * (100 / images.length)}%)`;
+            
+            // Atualizar indicadores
+            document.querySelectorAll('.indicator').forEach((ind, index) => {
+                ind.classList.toggle('active', index === currentSlide);
+            });
+            
+            // Reiniciar o intervalo de transição automática
+            restartAutoSlide();
+        }
+        
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % images.length;
+            goToSlide(currentSlide);
+        }
+        
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + images.length) % images.length;
+            goToSlide(currentSlide);
+        }
+        
+        // Transição automática
+        function startAutoSlide() {
+            autoSlideInterval = setInterval(nextSlide, 3000); // Muda a cada 3 segundos
+        }
+        
+        function restartAutoSlide() {
+            clearInterval(autoSlideInterval);
+            startAutoSlide();
+        }
+        
+        // Controle por toque
+        carouselContainer.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            isDragging = true;
+            clearInterval(autoSlideInterval);
+        });
+        
+        carouselContainer.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            const x = e.touches[0].clientX;
+            const diff = startX - x;
+            
+            // Movimentação horizontal apenas
+            if (Math.abs(diff) > 0) {
+                e.preventDefault();
+            }
+        });
+        
+        carouselContainer.addEventListener('touchend', (e) => {
+            if (!isDragging) return;
+            isDragging = false;
+            
+            const endX = e.changedTouches[0].clientX;
+            const diff = startX - endX;
+            
+            // Limiar para considerar um swipe
+            if (diff > 50) {
+                nextSlide();
+            } else if (diff < -50) {
+                prevSlide();
+            } else {
+                goToSlide(currentSlide);
+            }
+            
+            // Reinicia o slideshow automático
+            restartAutoSlide();
+        });
+        
+        // Iniciar carrossel
+        updateCarousel();
+        startAutoSlide();
+        
+        // Configuração dos corações
+        function criarCoracao() {
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.innerHTML = "❤️";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = 3 + Math.random() * 3 + "s";
+            heart.style.fontSize = (20 + Math.random() * 20) + "px";
+            heart.style.opacity = 0.5 + Math.random() * 0.5;
+
+            document.getElementById("hearts-container").appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }
+
+        setInterval(criarCoracao, 200);
+
+        // Contador de amor
+        function calcularAmor() {
+            const dataInput = '2022-12-08';
+            const dataInicio = new Date(dataInput + 'T00:00:00');
+            const agora = new Date();
+            let diffMs = agora - dataInicio;
+
+            if (diffMs < 0) {
+                document.getElementById("resultado").innerHTML = "Essa data ainda não chegou!";
+                return;
+            }
+
+            const segundos = Math.floor(diffMs / 1000);
+            const minutos = Math.floor(segundos / 60);
+            const horas = Math.floor(minutos / 60);
+            const dias = Math.floor(horas / 24);
+            const anos = Math.floor(dias / 365.25);
+
+            const diasRestantes = dias % 365.25;
+            const horasRestantes = horas % 24;
+            const minutosRestantes = minutos % 60;
+            const segundosRestantes = segundos % 60;
+
+            const texto = `Te amo há ${anos} anos, ${Math.floor(diasRestantes)} dias, ${horasRestantes} horas, ${minutosRestantes} minutos e ${segundosRestantes} segundos. ❤️`;
+
+            document.getElementById("resultado").innerHTML = texto;
+        }
+
+        setInterval(calcularAmor, 1000);
+        calcularAmor(); // Chamar imediatamente
+    </script>
+</body>
+
+</html>
