@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Feliz Dia dos Namorados ❤️</title>
+    <link rel="shortcut icon" href="image1.jpg" type="image/x-icon">
+
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Container para os corações (não interfere com a rolagem) -->
+    <div class="hearts-container" id="hearts-container"></div>
+
+    <!-- Conteúdo principal -->
+    <div class="container">
+        <header class="text-center mb-8 animate__animated animate__fadeIn">
+            <h1
+                class="text-4xl md:text-5xl font-bold text-pink-600 mb-2 font-dancing animate__animated animate__pulse animate__infinite">
+                Feliz dia Dos Namorados</span>
+            </h1>
+            <p class="text-pink-500 text-lg">Para a mulher mais linda do meu mundo</p>
+        </header>
+
+        <!-- Carrossel de imagens -->
+        <div class="carousel-container" id="carousel-container">
+            <div class="carousel" id="carousel">
+                <!-- Imagens serão adicionadas via JavaScript -->
+            </div>
+            <div class="carousel-indicators" id="indicators" style="display: none;"></div>
+        </div>
+
+        <!-- Player do Spotify -->
+        <div class="spotify-player">
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/6P7Uodyh8g40Nyc3no6R8E?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+        </div>
+
+        <!-- Botão para exibir o poema com estilo flutuante -->
+        <div class="poema-container text-center">
+            <button id="mostrar-poema"
+                class="bg-red-500 text-white py-2 px-4 rounded floating-button font-dancing pqp">Para
+                Você</button>
+        </div>
+
+        <!-- Texto romântico com animação linha por linha -->
+        <div class="texto-romantico hidden" id="poema">
+            <p class="line">Meu amor,</p>
+
+            <p class="line">Estamos celebramos um ano de casamento, e oito anos de história. Oito anos de amor, de desafios superados,
+            de crescimento mútuo, de vida real. E, dentro dessa jornada, a maior das nossas bênçãos: a Mabi, que chegou
+            pra virar tudo do avesso de um jeito maravilhoso, trazendo mais sentido, mais amor e mais vontade de ser
+            melhor todos os dias.</p>
+
+            <p class="line">É difícil colocar em palavras tudo o que você significa pra mim. Você é minha parceira de vida, minha base,
+            meu ponto de paz. Mesmo nos dias difíceis, nas correrias, nas noites mal dormidas, é com você que eu quero
+            estar. Sempre foi assim, desde o começo, e ainda hoje, cada novo dia ao seu lado reafirma essa certeza.</p>
+
+            <p class="line">Te ver como mãe da Mabi é algo que me emociona de verdade. Você é forte, carinhosa, dedicada, paciente,
+            mesmo quando parece não ter mais energia. E ver o quanto nossa filha se espelha em você me enche de orgulho.
+            Ela é, sem dúvida, o reflexo mais bonito do amor que construímos.</p>
+
+            <p class="line">Nosso casamento é recente no papel, mas nosso compromisso já é antigo e profundo. A gente tem uma história
+            viva, cheia de detalhes, de memórias, de momentos que só a gente entende. E eu sou grato por tudo isso, pela
+            mulher incrível que você é, pela mãe que você se tornou e pela parceira que eu tive a sorte de encontrar.</p>
+
+            <p class="line">Eu te amo. E te escolho, todos os dias. Que esse seja só o primeiro de muitos aniversários de casamento, e
+            que a gente continue crescendo, amando e cuidando um do outro como sempre fez.</p>
+
+            <p class="line">Com todo o meu amor,</p>
+            <p class="line"><br></p>
+            <p class="line">Bruno</p>
+
+        </div>
+
+        <!-- Contador de amor -->
+        <div class="love-counter">
+            <h2 class="font-dancing ">Vivendo Juntos há:</h2>
+            <div class="resultado" id="resultado"></div>
+        </div>
+    </div>
+
+    <script>
+        // Mostrar o poema com animação ao clicar no botão
+        document.getElementById('mostrar-poema').addEventListener('click', () => {
+            const poema = document.getElementById('poema');
+            poema.classList.remove('hidden');
+
+            // Animação linha por linha
+            const lines = poema.querySelectorAll('.line');
+            lines.forEach((line, index) => {
+                setTimeout(() => {
+                    line.classList.add('visible');
+                }, index * 500); // 500ms entre cada linha
+            });
+        });
+    </script>
+</body>
+
+</html>

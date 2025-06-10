@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Feliz Dia dos Namorados ❤️</title>
+    <link rel="shortcut icon" href="image1.jpg" type="image/x-icon">
+
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Container para os corações (não interfere com a rolagem) -->
+    <div class="hearts-container" id="hearts-container"></div>
+
+    <!-- Conteúdo principal -->
+    <div class="container">
+        <header class="text-center mb-8 animate__animated animate__fadeIn">
+            <h1
+                class="text-4xl md:text-5xl font-bold text-pink-600 mb-2 font-dancing animate__animated animate__pulse animate__infinite">
+                Feliz dia Dos Namorados</span>
+            </h1>
+            <p class="text-pink-500 text-lg">Para o Homem mais lindo do meu mundo</p>
+        </header>
+
+        <!-- Carrossel de imagens -->
+        <div class="carousel-container" id="carousel-container">
+            <div class="carousel" id="carousel">
+                <!-- Imagens serão adicionadas via JavaScript -->
+            </div>
+            <div class="carousel-indicators" id="indicators" style="display: none;"></div>
+        </div>
+
+        <!-- Player do Spotify -->
+        <div class="spotify-player">
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/4qQCkzpkOPvbgbcy3fHwxK?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
+
+        <!-- Botão para exibir o poema com estilo flutuante -->
+        <div class="poema-container text-center">
+            <button id="mostrar-poema"
+                class="bg-red-500 text-white py-2 px-4 rounded floating-button font-dancing pqp">Para
+                Você</button>
+        </div>
+
+        <!-- Texto romântico com animação linha por linha -->
+        <div class="texto-romantico hidden" id="poema">
+
+            <p class="line">Nossa história começou em 10 de julho de 2008, marcada por um encontro que transformou nossas vidas. Desde o início, o amor, a parceria e o companheirismo foram o alicerce do que construímos juntos. Passamos por momentos muito difíceis, mas também vivemos conquistas inesquecíveis. Você esteve ao meu lado nas batalhas e nas vitórias, ajudando na educação dos meus filhos como um verdadeiro pai, com carinho, firmeza e dedicação.</p>
+            <p class="line">Você fez parte dos momentos mais especiais da minha vida: esteve presente na minha colação de grau da graduação, depois na pós-graduação, sempre com orgulho nos olhos e apoio incondicional no coração. Juntos, vimos nossos meninos crescerem e se tornarem homens, e agora somos presenteados com as nossas netas lindas e maravilhosas — um novo capítulo cheio de ternura e alegria.</p>
+            <p class="line">Rudolfo, você é esse paizão, vôzão e maridão incrível que a vida me deu. Que venham muitos e muitos anos de amor, cumplicidade e novas memórias ao seu lado.</p>
+            <p class="line"><br></p>
+            <p class="line">Te Amo!</p>
+        </div>
+
+        <!-- Contador de amor -->
+        <!-- <div class="love-counter">
+            <h2 class="font-dancing ">Vivendo Juntos há:</h2>
+            <div class="resultado" id="resultado"></div>
+        </div> -->
+    </div>
+
+    <script>
+        // Mostrar o poema com animação ao clicar no botão
+        document.getElementById('mostrar-poema').addEventListener('click', () => {
+            const poema = document.getElementById('poema');
+            poema.classList.remove('hidden');
+
+            // Animação linha por linha
+            const lines = poema.querySelectorAll('.line');
+            lines.forEach((line, index) => {
+                setTimeout(() => {
+                    line.classList.add('visible');
+                }, index * 500); // 500ms entre cada linha
+            });
+        });
+    </script>
+</body>
+
+</html>
